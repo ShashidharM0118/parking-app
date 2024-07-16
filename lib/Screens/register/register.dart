@@ -61,11 +61,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     login(
-            email: _email,
-            password: _password,
-            updateLoading: updateLoading,
-            isRegistration: true,
-            details: {
+        email: _email,
+        password: _password,
+        updateLoading: updateLoading,
+        isRegistration: true,
+        details: {
           "name": _name,
           "email": _email,
           "password": _password,
@@ -145,7 +145,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 40),
                     child: TextField(
                         decoration:
-                            InputDecoration(labelText: "Confirm Password"),
+                        InputDecoration(labelText: "Confirm Password"),
                         obscureText: true,
                         onChanged: (text) => _password2 = text,
                         keyboardType: TextInputType.visiblePassword),
@@ -155,35 +155,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     alignment: Alignment.center,
                     margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                     child: _loading
-                        ? (CircularProgressIndicator(
-                            semanticsLabel: 'Signing you up...',
-                          ))
-                        : (RaisedButton(
-                            onPressed: () {
-                              handleRegister();
-                            },
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(80.0)),
-                            textColor: Colors.white,
-                            padding: const EdgeInsets.all(0),
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 50.0,
-                              width: size.width * 0.5,
-                              decoration: new BoxDecoration(
-                                  borderRadius: BorderRadius.circular(80.0),
-                                  gradient: new LinearGradient(colors: [
-                                    Color.fromARGB(255, 117, 1, 82),
-                                    Color.fromARGB(255, 187, 16, 155)
-                                  ])),
-                              padding: const EdgeInsets.all(0),
-                              child: Text(
-                                "SIGN UP",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          )),
+                        ? CircularProgressIndicator(
+                      semanticsLabel: 'Signing you up...',
+                    )
+                        : ElevatedButton(
+                      onPressed: () {
+                        handleRegister();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(80.0)),
+                        padding: EdgeInsets.all(0),
+                        textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 50.0,
+                        width: size.width * 0.5,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(80.0),
+                            gradient: LinearGradient(colors: [
+                              Color.fromARGB(255, 117, 1, 82),
+                              Color.fromARGB(255, 187, 16, 155)
+                            ])),
+                        padding: EdgeInsets.all(0),
+                        child: Text(
+                          "SIGN UP",
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
                   ),
                   Container(
                     alignment: Alignment.center,

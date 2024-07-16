@@ -58,145 +58,143 @@ class _LoginScreenState extends State<LoginScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Container(
-      width: double.infinity,
-      height: size.height,
-      alignment: Alignment.center,
-      child: FutureBuilder<User>(
-        future: fetchCurrentUser(),
-        builder: (BuildContext buildContext, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.none &&
-              !snapshot.hasData) {
-            return Center(child: Text("Error. ${snapshot.error.toString()}"));
-          } else if ((snapshot.data != null) && (snapshot.data.id != 0)) {
-            SchedulerBinding.instance?.addPostFrameCallback((_) {
-              Navigator.popAndPushNamed(context, '/');
-            });
-          } else if ((snapshot.data != null) && (snapshot.data.id == 0)) {
-            return SingleChildScrollView(
-              child: (Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.fromLTRB(40, 5, 40, 20),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      radius: Constants.avatarRadius,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(Constants.avatarRadius)),
-                          child: Image.asset("assets/images/parking.png")),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 40),
-                    child: Text(
-                      "LOGIN",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColor,
-                          fontSize: 36),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(horizontal: 40),
-                    child: TextField(
-                        onChanged: (text) => {updateEmail(text)},
-                        decoration: InputDecoration(labelText: "Email address"),
-                        keyboardType: TextInputType.emailAddress),
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(horizontal: 40),
-                    child: TextField(
-                      onChanged: (text) => {updatePassword(text)},
-                      decoration: InputDecoration(labelText: "Password"),
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: true,
-                    ),
-                  ),
-                  // Container(
-                  //   alignment: Alignment.centerRight,
-                  //   margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  //   child: Text(
-                  //     "Forgot your password?",
-                  //     style: TextStyle(fontSize: 12, color: Color(0XFF2661FA)),
-                  //   ),
-                  // ),
-                  SizedBox(height: size.height * 0.03),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                    child: _loading
-                        ? (CircularProgressIndicator(
-                            semanticsLabel: 'Logging you in...',
-                          ))
-                        : (RaisedButton(
-                            onPressed: () => {executeLogin()},
+          width: double.infinity,
+          height: size.height,
+          alignment: Alignment.center,
+          child: FutureBuilder<User>(
+            future: fetchCurrentUser(),
+            builder: (BuildContext buildContext, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.none &&
+                  !snapshot.hasData) {
+                return Center(child: Text("Error. ${snapshot.error.toString()}"));
+              } else if ((snapshot.data != null) && (snapshot.data.id != 0)) {
+                SchedulerBinding.instance?.addPostFrameCallback((_) {
+                  Navigator.popAndPushNamed(context, '/');
+                });
+              } else if ((snapshot.data != null) && (snapshot.data.id == 0)) {
+                return SingleChildScrollView(
+                  child: (Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.fromLTRB(40, 5, 40, 20),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          radius: Constants.avatarRadius,
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(Constants.avatarRadius)),
+                              child: Image.asset("assets/images/parking.png")),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        child: Text(
+                          "LOGIN",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 36),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      SizedBox(height: size.height * 0.03),
+                      Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.symmetric(horizontal: 40),
+                        child: TextField(
+                            onChanged: (text) => {updateEmail(text)},
+                            decoration: InputDecoration(labelText: "Email address"),
+                            keyboardType: TextInputType.emailAddress),
+                      ),
+                      SizedBox(height: size.height * 0.03),
+                      Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.symmetric(horizontal: 40),
+                        child: TextField(
+                          onChanged: (text) => {updatePassword(text)},
+                          decoration: InputDecoration(labelText: "Password"),
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
+                        ),
+                      ),
+                      SizedBox(height: size.height * 0.03),
+                      Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                        child: _loading
+                            ? CircularProgressIndicator(
+                          semanticsLabel: 'Logging you in...',
+                        )
+                            : ElevatedButton(
+                          onPressed: () => {executeLogin()},
+                          style: ElevatedButton.styleFrom(
+                            primary: Color.fromARGB(255, 117, 1, 82),
+                            onPrimary: Colors.white,
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(80.0)),
-                            textColor: Colors.white,
-                            padding: const EdgeInsets.all(0),
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 50.0,
-                              width: size.width * 0.5,
-                              decoration: new BoxDecoration(
-                                  borderRadius: BorderRadius.circular(80.0),
-                                  gradient: new LinearGradient(colors: [
-                                    Color.fromARGB(255, 117, 1, 82),
-                                    Color.fromARGB(255, 187, 16, 155)
-                                  ])),
-                              padding: const EdgeInsets.all(0),
-                              child: Text(
-                                "LOGIN",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                              borderRadius: BorderRadius.circular(80.0),
+                            ),
+                            padding: EdgeInsets.all(0),
+                          ),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 50.0,
+                            width: size.width * 0.5,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(80.0),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromARGB(255, 117, 1, 82),
+                                  Color.fromARGB(255, 187, 16, 155)
+                                ],
                               ),
                             ),
-                          )),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                    child: GestureDetector(
-                      onTap: () =>
-                          {Navigator.popAndPushNamed(context, '/signUp')},
-                      child: Text(
-                        "Don't Have an Account? Sign up",
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).primaryColor),
+                            padding: EdgeInsets.all(0),
+                            child: Text(
+                              "LOGIN",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              )),
-            );
-          } else {
-            if (snapshot.connectionState == ConnectionState.active) {
-              return Center(
-                  child: CircularProgressIndicator(
-                semanticsLabel: 'Loading',
-              ));
-            }
-          }
-          if (this._error != '') {
-            Fluttertoast.showToast(
-                msg: this._error,
-                toastLength: Toast.LENGTH_LONG,
-                backgroundColor: Colors.red);
-          }
-          return Center(child: Text("..."));
-          // return Center(child: Text("Worst case scenario."));
-        },
-      ),
-    ));
+                      Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                        child: GestureDetector(
+                          onTap: () =>
+                          {Navigator.popAndPushNamed(context, '/signUp')},
+                          child: Text(
+                            "Don't Have an Account? Sign up",
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).primaryColor),
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
+                );
+              } else {
+                if (snapshot.connectionState == ConnectionState.active) {
+                  return Center(
+                      child: CircularProgressIndicator(
+                        semanticsLabel: 'Loading',
+                      ));
+                }
+              }
+              if (this._error != '') {
+                Fluttertoast.showToast(
+                    msg: this._error,
+                    toastLength: Toast.LENGTH_LONG,
+                    backgroundColor: Colors.red);
+              }
+              return Center(child: Text("..."));
+            },
+          ),
+        ));
   }
 }

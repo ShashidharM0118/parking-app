@@ -24,17 +24,17 @@ class CustomDialogBox extends StatefulWidget {
 
   const CustomDialogBox(
       {Key? key,
-      required this.title,
-      required this.descriptions,
-      required this.text,
-      this.img,
-      this.okAction,
-      this.user,
-      this.booking,
-      this.paying,
-      this.amount,
-      this.requestingClearance,
-      this.paymentReceipt})
+        required this.title,
+        required this.descriptions,
+        required this.text,
+        this.img,
+        this.okAction,
+        this.user,
+        this.booking,
+        this.paying,
+        this.amount,
+        this.requestingClearance,
+        this.paymentReceipt})
       : super(key: key);
 
   @override
@@ -66,10 +66,10 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
           backgroundColor: Colors.red);
     } else {
       bookParkingSpot(
-              userId: user.id,
-              spotId: widget.amount,
-              carReg: carReg,
-              updateLoading: updateLoading)
+          userId: user.id,
+          spotId: widget.amount,
+          carReg: carReg,
+          updateLoading: updateLoading)
           .then((value) async {
         finish();
       }).catchError((error) => print(error.toString()));
@@ -98,9 +98,9 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
       } else {
         updateISPaying(true);
         pay(
-                userId: user.id,
-                amount: widget.amount ?? "NULL",
-                updateLoading: updateLoading)
+            userId: user.id,
+            amount: widget.amount ?? "NULL",
+            updateLoading: updateLoading)
             .then((value) => {})
             .catchError(
                 (error) => print("payment callback " + error.toString()))
@@ -198,41 +198,41 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               ),
               (widget.paying != null && widget.paying == true)
                   ? Column(
-                      children: [
-                        SizedBox(height: 22.0),
-                        Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.symmetric(horizontal: 40),
-                          child: TextField(
-                            onChanged: (text) => amountToPay = text,
-                            decoration: InputDecoration(
-                              labelText: "Amount to pay",
-                            ),
-                            keyboardType: TextInputType.number,
-                          ),
-                        ),
-                      ],
-                    )
+                children: [
+                  SizedBox(height: 22.0),
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(horizontal: 40),
+                    child: TextField(
+                      onChanged: (text) => amountToPay = text,
+                      decoration: InputDecoration(
+                        labelText: "Amount to pay",
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                ],
+              )
                   : (widget.booking != null && widget.booking == true)
-                      ? Column(
-                          children: [
-                            SizedBox(height: 22.0),
-                            Container(
-                              alignment: Alignment.center,
-                              margin: EdgeInsets.symmetric(horizontal: 40),
-                              child: TextField(
-                                onChanged: (text) => carReg = text,
-                                decoration: InputDecoration(
-                                  labelText: "CAR REG NUMBER",
-                                ),
-                                keyboardType: TextInputType.text,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Column(
-                          children: [],
-                        ),
+                  ? Column(
+                children: [
+                  SizedBox(height: 22.0),
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(horizontal: 40),
+                    child: TextField(
+                      onChanged: (text) => carReg = text,
+                      decoration: InputDecoration(
+                        labelText: "CAR REG NUMBER",
+                      ),
+                      keyboardType: TextInputType.text,
+                    ),
+                  ),
+                ],
+              )
+                  : Column(
+                children: [],
+              ),
               SizedBox(
                 height: 22,
               ),
@@ -240,18 +240,18 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                 alignment: Alignment.bottomRight,
                 child: _loading
                     ? (CircularProgressIndicator(
-                        semanticsLabel: 'Processing',
-                      ))
-                    : FlatButton(
-                        onPressed: () {
-                          widget.paying != null && widget.paying == true
-                              ? handlePayment()
-                              : handleBooking(widget.user);
-                        },
-                        child: Text(
-                          widget.text,
-                          style: TextStyle(fontSize: 18),
-                        )),
+                  semanticsLabel: 'Processing',
+                ))
+                    : TextButton(
+                    onPressed: () {
+                      widget.paying != null && widget.paying == true
+                          ? handlePayment()
+                          : handleBooking(widget.user);
+                    },
+                    child: Text(
+                      widget.text,
+                      style: TextStyle(fontSize: 18),
+                    )),
               ),
             ],
           ),
@@ -264,7 +264,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
             radius: Constants.avatarRadius,
             child: ClipRRect(
                 borderRadius:
-                    BorderRadius.all(Radius.circular(Constants.avatarRadius)),
+                BorderRadius.all(Radius.circular(Constants.avatarRadius)),
                 child: Image.asset("assets/images/parking.png")),
           ),
         ),
@@ -297,7 +297,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                 key: _printKey,
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: Constants.padding),
+                  const EdgeInsets.symmetric(horizontal: Constants.padding),
                   child: Column(
                     children: [
                       Container(
@@ -309,7 +309,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                               borderRadius: BorderRadius.all(
                                   Radius.circular(Constants.avatarRadius)),
                               child:
-                                  Image.asset("assets/images/green_check.png")),
+                              Image.asset("assets/images/green_check.png")),
                         ),
                       ),
                       Text(
